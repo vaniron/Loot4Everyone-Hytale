@@ -85,11 +85,15 @@ idea.project.settings.runConfigurations {
         mainClass = 'com.hypixel.hytale.Main'
         moduleName = project.idea.module.name + '.main'
         programParameters = '--allow-op --disable-sentry --assets="' + "${hytaleHome}/install/$patchline/package/game/latest/Assets.zip" + '"'
+        def modPaths = []
         if (includes_pack.toBoolean()) {
-            programParameters += ' --mods="' + sourceSets.main.java.srcDirs.first().parentFile.absolutePath + '"'
+            modPaths << sourceSets.main.java.srcDirs.first().parentFile.absolutePath
         }
         if (load_user_mods.toBoolean()) {
-            programParameters += ' --mods="' + "${hytaleHome}/UserData/Mods" + '"'
+            modPaths << "${hytaleHome}/UserData/Mods"
+        }
+        if (!modPaths.isEmpty()) {
+            programParameters += ' --mods="' + modPaths.join(',') + '"'
         }
         workingDirectory = serverRunDir.absolutePath
     }
