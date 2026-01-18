@@ -10,7 +10,6 @@ public class OpenedContainerComponent implements Component<EntityStore> {
     private int x, y, z;
 
     public OpenedContainerComponent() {
-        // Default constructor required for registration
     }
 
     public OpenedContainerComponent(int x, int y, int z) {

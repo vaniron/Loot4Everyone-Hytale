@@ -16,7 +16,6 @@ import java.util.Map;
 
 public class PlayerLoot implements Component<EntityStore> {
 
-    // Same structure as Global: Map<Position, BsonJsonString>
     public static final BuilderCodec<PlayerLoot> CODEC = BuilderCodec.builder(
                     PlayerLoot.class,
                     PlayerLoot::new
@@ -49,12 +48,10 @@ public class PlayerLoot implements Component<EntityStore> {
     public List<ItemStack> getInventory(int x, int y, int z) {
         String json = lootData.get(LootChestTemplate.getKey(x, y, z));
         if (json == null) return new ArrayList<>();
-        // Re-use the Serializer from your Global class
         return LootChestTemplate.InventorySerializer.deserialize(json);
     }
 
     public void setInventory(int x, int y, int z, List<ItemStack> items) {
-        // Re-use the Serializer from your Global class
         String json = LootChestTemplate.InventorySerializer.serialize(items);
         lootData.put(LootChestTemplate.getKey(x, y, z), json);
     }

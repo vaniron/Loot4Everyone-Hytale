@@ -51,11 +51,9 @@ public class Loot4Everyone extends JavaPlugin {
         this.getEntityStoreRegistry().registerSystem(new BreakBlockEventListener());
         this.getEntityStoreRegistry().registerSystem(new DamageBlockEventListener());
 
-        // 1. Register the Component
         this.containerComponentType = this.getEntityStoreRegistry()
                 .registerComponent(OpenedContainerComponent.class, OpenedContainerComponent::new);
 
-        // 2. Register the System (Pass the component type key)
         this.getEntityStoreRegistry().registerSystem(new ContainerMonitoringSystem(this.containerComponentType));
 
         this.lootChestTemplateComponentType = this.getChunkStoreRegistry().registerResource(LootChestTemplate.class,"LootChestTemplate", LootChestTemplate.CODEC);
@@ -100,7 +98,6 @@ public class Loot4Everyone extends JavaPlugin {
         public void onEntityAdded(@NonNullDecl Ref<ChunkStore> ref, @NonNullDecl AddReason addReason, @NonNullDecl Store<ChunkStore> store, @NonNullDecl CommandBuffer<ChunkStore> commandBuffer) {
            ItemContainerState itemContainerState = (ItemContainerState) store.getComponent(ref, this.componentType);
             if (itemContainerState.getDroplist() != null){
-                LOGGER.atInfo().log("Loot chest!");
 
                 LootChestTemplate lootChestTemplate = commandBuffer.getResource(Loot4Everyone.get().getlootChestTemplateResourceType());
 

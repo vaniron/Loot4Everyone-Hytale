@@ -3,15 +3,12 @@ package org.mimstar.plugin;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.EntityEventSystem;
-import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.event.events.ecs.UseBlockEvent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
-import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 import com.hypixel.hytale.server.core.universe.world.meta.BlockState;
 import com.hypixel.hytale.server.core.universe.world.meta.state.ItemContainerState;
-import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
@@ -30,7 +27,6 @@ public class UseBlockEventPre extends EntityEventSystem<EntityStore, UseBlockEve
                        @NonNullDecl CommandBuffer<EntityStore> commandBuffer,
                        @NonNullDecl UseBlockEvent.Pre useBlockEventPre) {
 
-        // Get the Ref (handle) for the entity using the ID from context
         Ref<EntityStore> playerRef = useBlockEventPre.getContext().getEntity();
 
         Player player = store.getComponent(useBlockEventPre.getContext().getEntity(), Player.getComponentType());
@@ -40,7 +36,7 @@ public class UseBlockEventPre extends EntityEventSystem<EntityStore, UseBlockEve
 
         if (blockType instanceof ItemContainerState itemContainerState){
             LootChestTemplate lootChestTemplate = itemContainerState.getReference().getStore().getResource(Loot4Everyone.get().getlootChestTemplateResourceType());
-            if (useBlockEventPre.getInteractionType().toString().equals("Use") && itemContainerState.getWindows().isEmpty() && lootChestTemplate != null){
+            if (useBlockEventPre.getInteractionType().toString().equals("Use") && itemContainerState.getWindows().isEmpty() && lootChestTemplate != null && lootChestTemplate.hasTemplate(target.getX(),target.getY(), target.getZ())){
 
                 useBlockEventPre.setCancelled(false);
 

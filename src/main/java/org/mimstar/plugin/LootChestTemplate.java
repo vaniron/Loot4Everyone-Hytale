@@ -4,8 +4,6 @@ import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.codec.codecs.map.MapCodec;
-import com.hypixel.hytale.component.Component;
-import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Resource;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
@@ -19,7 +17,6 @@ import java.util.Map;
 
 public class LootChestTemplate implements Resource<ChunkStore> {
 
-    // Saves: Map<"x,y,z", List<ItemStack>>
     public static final BuilderCodec<LootChestTemplate> CODEC = BuilderCodec.builder(
                     LootChestTemplate.class,
                     LootChestTemplate::new
@@ -60,15 +57,11 @@ public class LootChestTemplate implements Resource<ChunkStore> {
             return new ArrayList<>();
         }
 
-        Loot4Everyone.LOGGER.atInfo().log("Get: " + json);
-
-        // Convert String -> List<SerializableItem> -> List<ItemStack>
         return InventorySerializer.deserialize(json);
     }
 
     public void saveTemplate(int x, int y, int z, List<ItemStack> items) {
         String json = InventorySerializer.serialize(items);
-        Loot4Everyone.LOGGER.atInfo().log("Save: " + json);
         templates.put(getKey(x, y, z), json);
     }
 
@@ -83,28 +76,22 @@ public class LootChestTemplate implements Resource<ChunkStore> {
                 if (stack != null) {
                     BsonDocument doc = new BsonDocument();
 
-                    // 1. Basic Fields
                     doc.append("id", new BsonString(stack.getItemId()));
                     doc.append("q", new BsonInt32(stack.getQuantity()));
 
-                    // 2. Durability
                     doc.append("d", new BsonDouble(stack.getDurability()));
                     doc.append("md", new BsonDouble(stack.getMaxDurability()));
 
-                    // 3. Metadata (NBT)
                     if (stack.getMetadata() != null) {
                         doc.append("meta", stack.getMetadata());
                     }
 
-                    // Convert THIS specific document to JSON and append it
                     jsonBuilder.append(doc.toJson());
 
                 } else {
-                    // Handle empty slots
                     jsonBuilder.append("null");
                 }
 
-                // Add a comma if this is not the last item
                 if (i < items.size() - 1) {
                     jsonBuilder.append(",");
                 }
@@ -120,7 +107,6 @@ public class LootChestTemplate implements Resource<ChunkStore> {
             List<ItemStack> items = new ArrayList<>();
 
             try {
-                // Parse the string back into a BsonArray
                 BsonArray array = BsonArray.parse(json);
 
                 for (BsonValue value : array) {
@@ -142,12 +128,10 @@ public class LootChestTemplate implements Resource<ChunkStore> {
                             metadata = doc.getDocument("meta");
                         }
 
-                        // Reconstruct using the constructor you provided
                         items.add(new ItemStack(itemId, quantity, durability, maxDurability, metadata));
                     }
                 }
             } catch (Exception e) {
-                // Log error if data is corrupted
                 System.err.println("Failed to deserialize inventory BSON: " + e.getMessage());
             }
 
