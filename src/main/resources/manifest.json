@@ -1,22 +1,21 @@
 {
-    "Group": "Example",
-    "Name": "ExamplePlugin",
-    "Version": "0.0.2",
-    "Description": "An example plugin for HyTale!",
+    "Group": "MimStar",
+    "Name": "Loot4Everyone",
+    "Version": "0.0.1",
+    "Description": "Loot chests for everyone!",
     "Authors": [
         {
-            "Name": "It's you!"
+            "Name": "MimStar"
         }
     ],
-    "Website": "example.org",
     "ServerVersion": "*",
     "Dependencies": {
-        
+        "Hytale:BlockStateModule": "*"
     },
     "OptionalDependencies": {
         
     },
     "DisabledByDefault": false,
-    "Main": "org.example.plugin.ExamplePlugin",
+    "Main": "org.mimstar.plugin.Loot4Everyone",
     "IncludesAssetPack": true
 }
