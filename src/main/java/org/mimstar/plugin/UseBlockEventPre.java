@@ -36,9 +36,11 @@ public class UseBlockEventPre extends EntityEventSystem<EntityStore, UseBlockEve
 
         if (blockType instanceof ItemContainerState itemContainerState){
             LootChestTemplate lootChestTemplate = itemContainerState.getReference().getStore().getResource(Loot4Everyone.get().getlootChestTemplateResourceType());
-            if (useBlockEventPre.getInteractionType().toString().equals("Use") && itemContainerState.getWindows().isEmpty() && lootChestTemplate != null && lootChestTemplate.hasTemplate(target.getX(),target.getY(), target.getZ())){
+            if (useBlockEventPre.getInteractionType().toString().equals("Use") && lootChestTemplate != null && lootChestTemplate.hasTemplate(target.getX(),target.getY(), target.getZ())){
 
-                useBlockEventPre.setCancelled(false);
+                if (!itemContainerState.getWindows().isEmpty()){
+                    useBlockEventPre.setCancelled(true);
+                }
 
                 OpenedContainerComponent monitor = new OpenedContainerComponent(target.getX(), target.getY(), target.getZ());
 
@@ -68,9 +70,6 @@ public class UseBlockEventPre extends EntityEventSystem<EntityStore, UseBlockEve
                         }
                     }
                 }
-            }
-            else{
-                useBlockEventPre.setCancelled(true);
             }
         }
     }
