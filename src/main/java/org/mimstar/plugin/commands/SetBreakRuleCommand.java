@@ -1,4 +1,4 @@
-package org.mimstar.plugin;
+package org.mimstar.plugin.commands;
 
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
@@ -11,6 +11,8 @@ import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import org.mimstar.plugin.Loot4Everyone;
+import org.mimstar.plugin.resources.LootChestConfig;
 
 import javax.annotation.Nonnull;
 

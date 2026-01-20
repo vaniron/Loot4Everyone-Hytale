@@ -1,4 +1,4 @@
-package org.mimstar.plugin;
+package org.mimstar.plugin.systems;
 
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.component.query.Query;
@@ -9,6 +9,9 @@ import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.meta.BlockState;
 import com.hypixel.hytale.server.core.universe.world.meta.state.ItemContainerState;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import org.mimstar.plugin.Loot4Everyone;
+import org.mimstar.plugin.components.OpenedContainerComponent;
+import org.mimstar.plugin.components.PlayerLoot;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;

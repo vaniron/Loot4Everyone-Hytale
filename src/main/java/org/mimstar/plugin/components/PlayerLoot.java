@@ -1,4 +1,4 @@
-package org.mimstar.plugin;
+package org.mimstar.plugin.components;
 
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;

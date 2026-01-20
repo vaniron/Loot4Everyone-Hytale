@@ -1,4 +1,4 @@
-package org.mimstar.plugin;
+package org.mimstar.plugin.events;
 
 import com.hypixel.hytale.component.Archetype;
 import com.hypixel.hytale.component.ArchetypeChunk;
@@ -13,6 +13,9 @@ import com.hypixel.hytale.server.core.universe.world.meta.BlockState;
 import com.hypixel.hytale.server.core.universe.world.meta.state.ItemContainerState;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
+import org.mimstar.plugin.Loot4Everyone;
+import org.mimstar.plugin.resources.LootChestConfig;
+import org.mimstar.plugin.resources.LootChestTemplate;
 
 public class DamageBlockEventListener extends EntityEventSystem<EntityStore, DamageBlockEvent> {
     public DamageBlockEventListener() {
